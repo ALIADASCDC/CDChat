@@ -1,209 +1,121 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CDCplay - Plataforma Oficial</title>
-
-  <!-- Configuración PWA incrustada para evitar múltiples archivos -->
-  <meta name="theme-color" content="#7e22ce">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="CDCplay">
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    
-    body {
-      min-height: 100vh;
-      color: #fff;
-      padding: 15px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #0b0813;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 440px;
-      background: rgba(23, 17, 38, 0.96);
-      border-radius: 20px;
-      border: 1px solid rgba(34, 197, 94, 0.5);
-      padding: 25px;
-      box-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.8);
-      text-align: center;
-    }
-
-    .success-title { font-size: 15px; font-weight: 800; color: #4ade80; text-transform: uppercase; margin-bottom: 5px; }
-    .success-subtitle { font-size: 11px; color: #cbd5e1; margin-bottom: 20px; line-height: 1.4; }
-
-    .card-box {
-      background: rgba(17, 13, 28, 0.95);
-      border: 1px solid #22c55e;
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 15px;
-      text-align: left;
-    }
-    
-    .wallet-card {
-      background: linear-gradient(135deg, rgba(22, 163, 74, 0.2), rgba(31, 21, 53, 0.9));
-      border: 1px solid #4ade80;
-      text-align: center;
-    }
-
-    .form-group { margin-bottom: 10px; }
-    .form-group label { display: block; font-size: 11px; color: #a78bfa; margin-bottom: 3px; font-weight: bold; }
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #3b2c5a;
-      background: #0b0813;
-      color: #fff;
-      font-size: 12px;
-    }
-
-    .btn-main {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(90deg, #16a34a, #22c55e);
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 12px;
-      text-decoration: none;
-      box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
-      text-transform: uppercase;
-      text-align: center;
-      margin-top: 5px;
-    }
-
-    .nav-tabs {
-      display: flex;
-      gap: 5px;
-      margin-bottom: 15px;
-    }
-    .tab-btn {
-      flex: 1;
-      padding: 8px;
-      background: #171126;
-      border: 1px solid #3b2c5a;
-      color: #cbd5e1;
-      font-size: 10px;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-    .tab-btn.active {
-      background: #22c55e;
-      color: #000;
-      border-color: #22c55e;
-    }
-
-    .section-view { display: none; }
-    .section-view.active { display: block; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retomatos - CDCplay</title>
+    <!-- Tailwind CSS para un diseño moderno y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.15;
+            pointer-events: none;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #7c3aed;
+            z-index: 1000;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
 
-<div class="container">
-  <div class="success-title">CDCplay - Panel Oficial</div>
-  <div class="success-subtitle">Plataforma integrada: Billetera, Referidos y Canal de WhatsApp.</div>
+    <!-- Marca de agua obligatoria -->
+    <div class="watermark">CDCPLAY - RETOMATOS</div>
 
-  <!-- Navegación interna de la App -->
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="cambiarSeccion('billetera')">Billetera</button>
-    <button class="tab-btn" onclick="cambiarSeccion('referidos')">Referidos</button>
-    <button class="tab-btn" onclick="cambiarSeccion('whatsapp')">WhatsApp</button>
-  </div>
+    <!-- Contenedor Principal -->
+    <div id="app" class="container mx-auto p-4 max-w-md flex-grow flex flex-col justify-center">
+        
+        <!-- Pantalla de Bienvenida / Acceso -->
+        <div id="auth-screen" class="bg-slate-900 border border-purple-900/50 p-6 rounded-2xl shadow-2xl shadow-purple-950/50">
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-extrabold text-purple-400 tracking-wider">RETOMATOS</h1>
+                <p class="text-sm text-slate-400 mt-1">Plataforma Independiente de Juegos y Pronósticos</p>
+            </div>
 
-  <!-- SECCIÓN 1: BILLETERA Y RETIROS -->
-  <div id="sec-billetera" class="section-view active">
-    <div class="card-box wallet-card">
-      <div style="font-size: 11px; color: #cbd5e1; text-transform: uppercase;">Saldo Disponible</div>
-      <div style="font-size: 26px; font-weight: 900; color: #4ade80; margin: 5px 0;" id="saldoBilletera">Bs. 1,450.00</div>
-      <div style="font-size: 10px; color: #94a3b8;">Cliente: Pedro Pérez (V-12345678)</div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Usuario o Cédula</label>
+                    <input type="text" id="username" placeholder="Ingresa tus datos" class="w-full bg-slate-950 border border-purple-900/60 rounded-lg p-3 text-slate-200 focus:outline-none focus:border-purple-500">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-slate-400 mb-1">Contraseña / PIN</label>
+                    <input type="password" id="password" placeholder="••••••••" class="w-full bg-slate-950 border border-purple-900/60 rounded-lg p-3 text-slate-200 focus:outline-none focus:border-purple-500">
+                </div>
+
+                <button onclick="login()" class="w-full bg-purple-700 hover:bg-purple-600 text-white font-bold py-3 rounded-lg transition-all shadow-lg shadow-purple-900/40">
+                    Ingresar al Sistema
+                </button>
+            </div>
+
+            <div class="mt-6 text-center">
+                <p class="text-xs text-slate-500">Gestión segura mediante canales automatizados y bots de Telegram.</p>
+            </div>
+        </div>
+
+        <!-- Panel Interno (Oculto inicialmente) -->
+        <div id="dashboard-screen" class="hidden flex-grow flex flex-col justify-between">
+            <div>
+                <header class="flex justify-between items-center mb-6 border-b border-purple-900/40 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-purple-400">Panel Principal</h2>
+                        <p class="text-xs text-slate-400" id="user-display">Bienvenido, Usuario</p>
+                    </div>
+                    <button onclick="logout()" class="bg-red-950/60 border border-red-900 text-red-300 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-red-900/60 transition-all">Salir</button>
+                </header>
+
+                <!-- Tarjeta de Billetera -->
+                <div class="bg-gradient-to-br from-purple-950 to-slate-900 border border-purple-800/50 p-5 rounded-2xl mb-6 shadow-lg">
+                    <p class="text-xs text-purple-300 uppercase tracking-wider font-medium">Billetera Virtual</p>
+                    <h3 class="text-3xl font-black text-white mt-1" id="wallet-balance">$ 0.00</h3>
+                    <div class="flex gap-2 mt-4">
+                        <button onclick="alert('Funcionalidad de recarga vinculada a Taquillas y Telegram.')" class="flex-1 bg-purple-600 hover:bg-purple-500 text-white py-2 rounded-lg text-xs font-bold transition-all">Recargar</button>
+                        <button onclick="alert('Solicitud de retiro procesada vía bot.')" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 py-2 rounded-lg text-xs font-bold border border-purple-900/50 transition-all">Retirar</button>
+                    </div>
+                </div>
+
+                <!-- Módulos / Acciones Rápidas -->
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div onclick="alert('Abriendo Módulo de Juegos y Pollas...')" class="bg-slate-900 border border-purple-900/40 p-4 rounded-xl cursor-pointer hover:border-purple-600 transition-all text-center">
+                        <span class="text-2xl">🎲</span>
+                        <h4 class="text-sm font-bold text-slate-200 mt-2">Juegos & Pollas</h4>
+                    </div>
+                    <div onclick="alert('Abriendo Escáner de Tickets Perdedores...')" class="bg-slate-900 border border-purple-900/40 p-4 rounded-xl cursor-pointer hover:border-purple-600 transition-all text-center">
+                        <span class="text-2xl">🎟️</span>
+                        <h4 class="text-sm font-bold text-slate-200 mt-2">Escáner Tickets</h4>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="text-center text-xs text-slate-600 py-4 border-t border-purple-950">
+                CDCplay &copy; 2026 - Todos los derechos reservados
+            </footer>
+        </div>
+
     </div>
 
-    <div class="card-box">
-      <div style="font-size: 11px; font-weight: bold; color: #facc15; margin-bottom: 8px;">📤 Solicitar Retiro a Banco</div>
-      <div class="form-group">
-        <label>Monto a Retirar (Bs.):</label>
-        <input type="number" id="montoRetiro" placeholder="Ej: 1000">
-      </div>
-      <div class="form-group">
-        <label>Pago Móvil Registrado:</label>
-        <input type="text" value="Mercantil (0105) - 0414-1234567" disabled style="color: #4ade80;">
-      </div>
-      <button class="btn-main" onclick="solicitarRetiro()">🚀 Procesar Retiro</button>
-    </div>
-  </div>
+    <script>
+        function login() {
+            const user = document.getElementById('username').value;
+            if(user.trim() !== "") {
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('dashboard-screen').classList.remove('hidden');
+                document.getElementById('user-display').innerText = "Bienvenido, " + user;
+                document.getElementById('wallet-balance').innerText = "$ 150.00";
+            } else {
+                alert("Por favor ingresa un usuario válido.");
+            }
+        }
 
-  <!-- SECCIÓN 2: REFERIDOS Y PUNTOS -->
-  <div id="sec-referidos" class="section-view">
-    <div class="card-box" style="text-align: center;">
-      <div style="font-size: 11px; font-weight: bold; color: #a78bfa; margin-bottom: 4px;">🤝 Tu Enlace de Invitación</div>
-      <div style="font-size: 10px; color: #cbd5e1; margin-bottom: 8px;">Gana <b>+10 Puntos</b> por cada amigo que registres.</div>
-      <div style="background: #0b0813; border: 1px dashed #a855f7; padding: 6px; border-radius: 6px; font-size: 10px; color: #facc15; word-break: break-all;" id="miEnlace">https://cdcplay.app/invitacion?ref=PEDRO123</div>
-      <button onclick="copiarEnlace()" style="margin-top: 8px; padding: 6px 10px; background: #9333ea; color: #fff; border: none; border-radius: 6px; font-size: 10px; font-weight: bold; cursor: pointer;">📋 Copiar Enlace</button>
-    </div>
-
-    <div class="card-box">
-      <div style="font-size: 11px; font-weight: bold; color: #facc15; margin-bottom: 8px;">🌟 Top Referidores (En Vivo)</div>
-      <div style="font-size: 11px; padding: 4px 0; border-bottom: 1px solid #3b2c5a;">🥇 Carlos Gómez: <b style="color:#4ade80">180 Pts</b></div>
-      <div style="font-size: 11px; padding: 4px 0; border-bottom: 1px solid #3b2c5a;">🥈 Mariana Rivas: <b style="color:#4ade80">140 Pts</b></div>
-      <div style="font-size: 11px; padding: 4px 0;">🥉 Pedro Pérez: <b style="color:#4ade80">90 Pts</b></div>
-    </div>
-  </div>
-
-  <!-- SECCIÓN 3: CANAL DE WHATSAPP OFICIAL -->
-  <div id="sec-whatsapp" class="section-view">
-    <div class="card-box" style="text-align: center;">
-      <div style="font-size: 28px; margin-bottom: 6px;">🟢</div>
-      <div style="font-size: 12px; font-weight: bold; color: #facc15; margin-bottom: 4px;">Canal Oficial de WhatsApp</div>
-      <div style="font-size: 10px; color: #94a3b8; margin-bottom: 12px;">Recibe resultados al instante y avisos importantes de la administración.</div>
-      
-      <!-- Link oficial de WhatsApp integrado -->
-      <a href="https://whatsapp.com/channel/0029Vb9PxtjHFxP866LlDc02" target="_blank" class="btn-main">
-        📱 Unirme al Canal de WhatsApp
-      </a>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  let saldoActual = 1450.00;
-
-  function cambiarSeccion(seccion) {
-    document.querySelectorAll('.section-view').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-    
-    document.getElementById('sec-' + seccion).classList.add('active');
-    event.target.classList.add('active');
-  }
-
-  function solicitarRetiro() {
-    let monto = parseFloat(document.getElementById('montoRetiro').value);
-    if (!monto || monto <= 0) { alert("Ingresa un monto válido."); return; }
-    if (monto > saldoActual) { alert("Saldo insuficiente."); return; }
-    
-    saldoActual -= monto;
-    document.getElementById('saldoBilletera').innerText = `Bs. ${saldoActual.toLocaleString('es-VE', { minimumFractionDigits: 2 })}`;
-    alert(`✅ ¡Retiro de Bs. ${monto} procesado hacia tu Pago Móvil exitosamente!`);
-    document.getElementById('montoRetiro').value = '';
-  }
-
-  function copiarEnlace() {
-    navigator.clipboard.writeText(document.getElementById('miEnlace').innerText);
-    alert("✅ ¡Enlace copiado al portapapeles!");
-  }
-</script>
-
+        function logout() {
+            document.getElementById('dashboard-screen').classList.add('hidden');
+            document.getElementById('auth-screen').classList.remove('hidden');
+            document.getElementById('username').value = "";
+            document.getElementById('password').value = "";
+        }
+    </script>
 </body>
 </html>
